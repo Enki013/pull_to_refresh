@@ -23,7 +23,7 @@ jobs:
 
   build_ios:
     name: Build Flutter (İOS)
-    needs: [flutter_test]
+    #needs: [flutter_test]
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4.1.1
@@ -40,7 +40,7 @@ jobs:
 
   build_android:
     name: Build Flutter (android)
-    needs: [flutter_test]
+    #needs: [flutter_test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.1
