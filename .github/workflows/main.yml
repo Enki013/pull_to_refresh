@@ -1,26 +1,30 @@
-iname: Build & Publish Release APK
+name: Flutter Build
 
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - main 
 
 jobs:
-  Gradle:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    - name: checkout code
-      uses: actions/checkout@v2
-    - name: setup jdk
-      uses: actions/setup-java@v1
+    - uses: actions/checkout@v2
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
       with:
-        java-version: "12.x"
-    - name: Flutter pub get
+        flutter-version: '3.16.9'
+
+    - name: Get dependencies
       run: flutter pub get
-    - name: Build Release APK
+
+    - name: Build APK
       run: flutter build apk
-    - name: Releasing using Hub
-      uses: Enki013/release-apk@main
-      env:
-       GITHUB_TOKEN: ${{ secrets.TOKEN }}
-       APP_FOLDER: app
+
+    - name: Archive the artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: app-release
+        path: build/app/outputs/flutter-apk/app-release.apk # APK dosyasının yolu
