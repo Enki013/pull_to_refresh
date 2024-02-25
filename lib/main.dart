@@ -7,7 +7,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -46,7 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: CustomRefreshIndicator(
-        child: DummyList(),
         onRefresh: () => Future.delayed(const Duration(seconds: 1)),
         offsetToArmed: _offsetToArm,
         builder: (context, child, controller) => AnimatedBuilder(
@@ -65,29 +64,32 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Transform.translate(
                   offset: Offset(0.0, _offsetToArm * controller.value),
-                  child: controller.isLoading ? DummyList() : child,
+                  child: controller.isLoading ? const DummyList() : child,
                 ),
               ],
             );
           },
         ),
+        child: const DummyList(),
       ),
     );
   }
 }
 
 class DummyList extends StatelessWidget {
+  const DummyList({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       itemCount: 10,
       // Number of items in the list
-      separatorBuilder: (context, index) => Divider(),
+      separatorBuilder: (context, index) => const Divider(),
       // Separator between items
       itemBuilder: (context, index) {
         return Container(
-          padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
             color: const Color(0xFFdbb7cb),
